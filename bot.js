@@ -89,6 +89,7 @@ bot.on("message", async message => {
 
     // const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
     // const comando = args.shift().toLowerCase();
+    // teste de commit
 
 });
 
