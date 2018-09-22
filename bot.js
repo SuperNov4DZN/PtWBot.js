@@ -50,6 +50,7 @@ bot.on("ready", () => {
                 fs.writeFile("./mutes.json", JSON.stringify(bot.mutes), err => {
                     if(err) throw err;
                     console.log(`O membro ${member.user.tag} foi desmutado!`)
+                    
                 });
             }
         }
@@ -89,7 +90,6 @@ bot.on("message", async message => {
 
     // const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
     // const comando = args.shift().toLowerCase();
-    // teste de commit
 
 });
 
