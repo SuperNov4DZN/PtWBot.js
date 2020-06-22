@@ -1,12 +1,12 @@
-// Bot diferenciado louco
 const config  = require("./config.json");
 const Discord = require("discord.js");
 const fs = require("fs");
+const Client = require("./client/client.js");
 
 const prefix = config.prefix;
 
-const bot = new Discord.Client({disableEveryone: true});
-bot.commands = new Discord.Collection;
+const bot = new Client();
+
 bot.mutes = require("./mutes.json");
 
 // Read the "cmds" file and display the commands
@@ -30,8 +30,8 @@ fs.readdir("./cmds/", (err, files) => {
 
 // Show a message when the bot starts
 bot.on("ready", () => {
-    console.log(`Bot foi iniciado, com ${bot.users.size} usuários, em ${bot.channels.size} canais, em ${bot.guilds.size} servidores.`);
-    bot.user.setActivity(`Helper PTW Official em ${bot.guilds.size} servidores`);
+    console.log(`Bot foi iniciado, com ${bot.users.cache.size} usuários, em ${bot.channels.cache.size} canais, em ${bot.guilds.cache.size} servidores.`);
+    bot.user.setActivity(`Helper PTW Official em ${bot.guilds.cache.size} servidores`);
 
     bot.setInterval(() => {
         for(let i in bot.mutes) {

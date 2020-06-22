@@ -1,0 +1,114 @@
+const {yt_token} = require("../config.json");
+const request = require("request");
+const ytdl = require("ytdl-core");
+
+function isYoutube(str) {
+    return str.toLowerCase().indexOf("youtube.com") > -1;
+}
+
+function searchVideo(querry, callback) {
+    request("https://www.googleapis.com/youtube/v3/search?part=id&type=video&q=" + encodeURIComponent(querry) + "&key=" + yt_token, (err, response, body) => {
+        var json = JSON.parse(body);
+        callback(json.items[0].id.videoId);
+    });
+}
+
+function getYoutubeId(str, callback) {
+    if (isYoutube(str)) {
+        callback(str);
+    } else {
+        searchVideo(str, (id) => callback("https://www.youtube.com/watch?v=" + id));
+    }
+}
+
+function play(message, song) {
+    const queue = message.client.queue;
+    const guild = message.guild;
+    const serverQueue = queue.get(message.guild.id);
+
+    if (!song) {
+      serverQueue.voiceChannel.leave();
+      queue.delete(guild.id);
+      return;
+    }
+
+    const dispatcher = serverQueue.connection
+      .play(ytdl(song.url))
+      .on("finish", () => {
+        serverQueue.songs.shift();
+        play(message, serverQueue.songs[0]);
+      })
+      .on("error", error => console.error(error));
+    dispatcher.setVolumeLogarithmic(serverQueue.volume / 100);
+    serverQueue.textChannel.send(`Start playing: **${song.title}**`);
+  }
+
+module.exports.run = async (bot, message, args) => {
+    try {
+        const queue = message.client.queue;
+        const serverQueue = message.client.queue.get(message.guild.id);
+
+        const voiceChannel = message.member.voice.channel;
+        if (!voiceChannel)
+            return message.channel.send(
+                "You need to be in a voice channel to play music!"
+            );
+        const permissions = voiceChannel.permissionsFor(message.client.user);
+        if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
+            return message.channel.send(
+                "I need the permissions to join and speak in your voice channel!"
+            );
+        }
+
+        const ytIdResult = new Promise(resolve => {
+            getYoutubeId(args.join(" "), (id) => resolve(id));
+        });
+        const ytId = await ytIdResult;
+
+        const songInfo = await ytdl.getInfo(ytId);
+        const song = {
+            title: songInfo.videoDetails.title,
+            url: songInfo.videoDetails.video_url
+        };
+
+        console.log(song);
+
+        if (!serverQueue) {
+            const queueContruct = {
+                textChannel: message.channel,
+                voiceChannel: voiceChannel,
+                connection: null,
+                songs: [],
+                volume: 100,
+                playing: true
+            };
+
+            queue.set(message.guild.id, queueContruct);
+
+            queueContruct.songs.push(song);
+
+            try {
+                var connection = await voiceChannel.join();
+                queueContruct.connection = connection;
+                play(message, queueContruct.songs[0]);
+            } catch (err) {
+                console.log(err);
+                queue.delete(message.guild.id);
+                return message.channel.send("Please use a valid youtube link");
+            }
+        } else {
+            serverQueue.songs.push(song);
+            return message.channel.send(
+                `${song.title} has been added to the queue!`
+            );
+        }
+    } catch (error) {
+        console.log(error);
+        message.channel.send(error.message);
+    }
+}
+
+module.exports.help = {
+    name: "play",
+    allias: "tocar"
+}
