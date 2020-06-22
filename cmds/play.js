@@ -71,8 +71,6 @@ module.exports.run = async (bot, message, args) => {
             url: songInfo.videoDetails.video_url
         };
 
-        console.log(song);
-
         if (!serverQueue) {
             const queueContruct = {
                 textChannel: message.channel,
@@ -99,7 +97,7 @@ module.exports.run = async (bot, message, args) => {
         } else {
             serverQueue.songs.push(song);
             return message.channel.send(
-                `${song.title} has been added to the queue!`
+                `**${song.title}** has been added to the queue!`
             );
         }
     } catch (error) {
