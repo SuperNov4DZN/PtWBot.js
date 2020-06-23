@@ -2,7 +2,7 @@ const genChannel = "366488204171411468"; // "chat_geral"
 
 // Say what the user wants in the "#chat_geral" channel
 module.exports.run = async (bot, message, args) => {
-    if (!message.member.roles.some(r => ["⟸❖ DONO ❖⟹", "✚ ADM ✚", "♦ MOD ♦"].includes(r.name))) {
+    if (!message.member.roles.cache.some(r => ["⟸❖ DONO ❖⟹", "✚ ADM ✚", "♦ MOD ♦"].includes(r.name))) {
         return message.reply("Desculpe, você não tem permissão para usar isto!");
     }
 

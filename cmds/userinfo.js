@@ -2,7 +2,7 @@ let Discord = module.require("discord.js");
 
 // Show info of the given member
 module.exports.run = async (bot, message, args) => {
-    if(!message.member.roles.some(r=>["⟸❖ DONO ❖⟹", "✚ ADM ✚", "♦ MOD ♦"].includes(r.name))) {
+    if(!message.member.roles.cache.some(r=>["⟸❖ DONO ❖⟹", "✚ ADM ✚", "♦ MOD ♦"].includes(r.name))) {
         return message.reply("Desculpe, você não tem permissão para usar isto!");
     }
 

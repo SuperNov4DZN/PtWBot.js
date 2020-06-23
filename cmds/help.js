@@ -2,7 +2,7 @@ let Discord = module.require("discord.js"); // Mudar o embed do comando help par
 
 // Show all the commands and how to use'em
 module.exports.run = async (bot, message, args) => {
-    if (!message.member.roles.some(r => ["⟸❖ DONO ❖⟹", "✚ ADM ✚", "♦ MOD ♦"].includes(r.name))) {
+    if (!message.member.roles.cache.some(r => ["⟸❖ DONO ❖⟹", "✚ ADM ✚", "♦ MOD ♦"].includes(r.name))) {
         return message.reply("Atualmente não temos nenhum comando voltado a \"membros\", apenas staff!")
     }
 

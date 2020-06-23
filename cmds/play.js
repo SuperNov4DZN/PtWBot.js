@@ -1,18 +1,18 @@
 const {yt_token} = require("../config.json");
 const request = require("request");
 const ytdl = require("ytdl-core");
-
+// Checks if a given string is a link to youtube
 function isYoutube(str) {
     return str.toLowerCase().indexOf("youtube.com") > -1;
 }
-
+// Uses the yt api to search a given querry and outputs the first result
 function searchVideo(querry, callback) {
     request("https://www.googleapis.com/youtube/v3/search?part=id&type=video&q=" + encodeURIComponent(querry) + "&key=" + yt_token, (err, response, body) => {
         var json = JSON.parse(body);
         callback(json.items[0].id.videoId);
     });
 }
-
+// Returns a link to the youtube video
 function getYoutubeId(str, callback) {
     if (isYoutube(str)) {
         callback(str);
