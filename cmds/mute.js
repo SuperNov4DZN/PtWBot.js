@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, args) => {
     if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("Você não tem permissão para administrar mensagens!");
 
     let member = message.mentions.members.first() || message.guild.members.get(args[0]);
-    let channel = bot.channels.find('id', logChannel);
+    let channel = await bot.channels.fetch(logChannel);
 
     // Check if the member exists
     if (!member) return message.reply("Por favor mencione um membro válido deste servidor!");

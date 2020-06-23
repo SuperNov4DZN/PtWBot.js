@@ -61,7 +61,7 @@ bot.on("ready", () => {
 // Update the bot status if he's added to any guild
 bot.on("guildCreate", guild => {
     console.log(`O bot entrou no servidor: ${guild.name} (id: ${guild.id}). População: ${guild.memberCount} membros!`);
-    bot.setActivity(`Helper PTW Official em ${bot.guilds.size} servidores`);
+    bot.user.setActivity(`Helper PTW Official em ${bot.guilds.size} servidores`);
 });
 
 // Update the bot status if he's removed from any guild
