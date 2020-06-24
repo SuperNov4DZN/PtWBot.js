@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, args) => {
         return message.reply("Atualmente não temos nenhum comando voltado a \"membros\", apenas staff!")
     }
 
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
 
         // .setDescription("!ping [Mostra a latência atual]\n"
         //     + "!diga ou say <mensagem> [Escreve a mensagem que você digitar]\n"

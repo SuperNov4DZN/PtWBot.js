@@ -20,8 +20,7 @@ module.exports.run = async (bot, message, args) => {
     }
 
     // Try deleting, show error message or delete message
-    const fetched = await message.channel.fetchMessages({ limit: deleteCount });
-    message.channel.bulkDelete(fetched)
+    message.channel.bulkDelete(deleteCount)
         .catch(error => message.reply(`Não foi possível deletar mensagens devido a: ${error}`));
 
     const m = await message.channel.send(`Um total de ${deleteCount} mensagens foram apagadas!`);

@@ -37,9 +37,9 @@ bot.on("ready", () => {
         for(let i in bot.mutes) {
             let time = bot.mutes[i].time;
             let guildId = bot.mutes[i].guild;
-            let guild = bot.guilds.get(guildId);
-            let member = guild.members.get(i);
-            let mutedRole = guild.roles.find(r => r.name === "mutado")
+            let guild = bot.guilds.cache.get(guildId);
+            let member = guild.members.cache.get(i);
+            let mutedRole = guild.roles.cache.find(r => r.name === "mutado")
             if(!mutedRole) continue;
 
             if(Date.now() > time) {

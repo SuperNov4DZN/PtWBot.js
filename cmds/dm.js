@@ -4,7 +4,12 @@ module.exports.run = async (bot, message, args) => {
         return message.reply("Desculpe, você não tem permissão para usar isto!");
     }
  
-    let member = message.mentions.members.first() || message.guild.members.get(args[0]);
+    let member = message.mentions.members.first();
+
+    if (!member) {
+        let fetched = await message.guild.members.fetch({query: args[0], limit: 1});
+        member = fetched.first();
+    }
 
     if(member == null) return;
     message.delete();

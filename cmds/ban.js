@@ -5,10 +5,14 @@ module.exports.run = async (bot, message, args) => {
     if (!message.member.roles.cache.some(r => ["⟸❖ DONO ❖⟹", "✚ ADM ✚"].includes(r.name))) {
         return message.reply("Desculpe, você não tem permissão para usar isto!");
     }
-
+    
     let member = message.mentions.members.first();
-    let channel = bot.channels.find('id', logChannel);
+    let channel = bot.channels.fetch(logChannel);
 
+    if (!member) {
+        let fetched = await message.guild.members.fetch({query: args[0], limit: 1});
+        member = fetched.first();
+    }
     // Check if the member exists
     if (!member) {
         return message.reply("Por favor mencione um membro válido deste servidor!");
