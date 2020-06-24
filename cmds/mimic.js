@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, args) => {
         return message.reply("Desculpe, você não tem permissão para usar isto!");
     }
 
-    let channel = bot.channels.find('id', genChannel);
+    let channel = bot.channels.cache.find('id', genChannel);
 
     // Send the massage in the "#chat_geral"
     const sayMessage = args.join(" ");

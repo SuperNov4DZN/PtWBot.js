@@ -6,14 +6,13 @@ module.exports.run = async (bot, message, args) => {
     if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("Você não tem permissão para administrar mensagens!");
 
     let member = message.mentions.members.first();
-    let channel = bot.channels.fetch(logChannel);
+    //let channel = bot.channels.fetch(logChannel);
 
     if (!member) {
         let fetched = await message.guild.members.fetch({query: args[0], limit: 1});
         member = fetched.first();
     }
 
-    console.log(member);
     // Check if the member exists
     if (!member) return message.reply("Por favor mencione um membro válido deste servidor!");
 
@@ -32,12 +31,20 @@ module.exports.run = async (bot, message, args) => {
                     permissions: 67109889
                 }
             });
-        }
 
-        catch (e) {
+            message.guild.channels.cache.forEach(async (channel, id) => {
+                await channel.createOverwrite(role, {
+                    'SEND_MESSAGES': false,
+                    'SPEAK': false,
+                    'ADD_REACTIONS': false
+                });
+            });
+        } catch (e) {
             console.log(e.stack);
         }
     }
+
+
 
     // Check if the member is already muted
     if (member.roles.cache.has(role.id)) return message.reply(`O usuario ${member.user.tag} já está mutado!`);
@@ -52,7 +59,7 @@ module.exports.run = async (bot, message, args) => {
 
     fs.writeFile("./mutes.json", JSON.stringify(bot.mutes, null, 4), err => {
         if(err) throw err;
-        channel.send(`${member.user.tag} Foi mutador por ${message.author.tag}`);
+        //channel.send(`${member.user.tag} Foi mutador por ${message.author.tag}`);
     });
 
     return;

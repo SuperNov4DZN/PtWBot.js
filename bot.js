@@ -45,7 +45,7 @@ bot.on("ready", () => {
             if(Date.now() > time) {
                 console.log(`${i} agora pode ser desmutado!`);
 
-                member.removeRole(mutedRole);
+                member.roles.remove(mutedRole);
                 delete bot.mutes[i];
 
                 fs.writeFile("./mutes.json", JSON.stringify(bot.mutes), err => {
