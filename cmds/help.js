@@ -1,4 +1,5 @@
-let Discord = module.require("discord.js"); // Mudar o embed do comando help para ficar igual o do userinfo!
+let Discord = module.require("discord.js");
+let fs = module.require("fs");
 
 // Show all the commands and how to use'em
 module.exports.run = async (bot, message, args) => {
@@ -25,21 +26,18 @@ module.exports.run = async (bot, message, args) => {
         .setDescription("Informações sobre todos os comandos disponíveis!")
 
         // Set the color of the embed
-        .setColor(0x2196F3)
+        .setColor(0x2196F3);
+    
+	const commandFiles = fs.readdirSync('./cmds').filter(file => file.endsWith('.js'));
 
-        // Set the main content of the embed
-        .addField("!ping", "Uso: \"!ping\" Mostra a latência atual.")
-        .addField("!say", "Uso: \"!say <mensagem>\" Escreve a mensagem que você digitar.")
-        .addField("!kick", "Uso: \"!kick <@usuario> ou <id>\" Remove um usuario do servidor.")
-        .addField("!ban", "Uso: \"!ban <@usuario> ou <id>\" Bane um usuario do servidor.")
-        .addField("!userinfo", "Uso: \"!userinfo <@usuario> ou <id>\" Mostra algumas informações do usuario.")
-        .addField("!mute", "Uso: \"!mute <@usuario> ou <id> <tempo>\" Muta o usuario durante o tempo determinando ou indeterminado se o mesmo não for dado.")
-        .addField("!unmute", "Uso: \"!unmute <@usuario> ou <id>\" Desmuta o usuario.")
-        .addField("!help", "Uso: \"!help\" Mostra essa mensagem.");
-
+	for (const file of commandFiles) {
+        const command = require(`./${file}`);
+        // Adding a field for each command with its\n name and description
+		embed.addField(command.help.name, command.help.description);
+	}
 
     // Send the embed as dm message
-    message.reply("Estou enviando todos os comandos para você!")
+    message.reply("Estou enviando todos os comandos para você!");
     await message.author.send(embed);
 
     return;
@@ -47,5 +45,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "help",
-    allias: "ajuda"
+    allias: "ajuda",
+    description: "Uso: \"!help\" \nMostra esta mensagem."
 }

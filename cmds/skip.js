@@ -18,5 +18,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "skip",
-    allias: "pular"
+    allias: "pular",
+    description: "Uso: \"!skip ou !skip <n>\" \nPula a música atual ou n músicas."
 }

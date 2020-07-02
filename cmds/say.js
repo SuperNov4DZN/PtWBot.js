@@ -14,5 +14,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "say",
-    allias: "diga"
+    allias: "diga",
+    description: "Uso: \"!say <mensagem>\" \nEscreve a mensagem que você digitar."
 }

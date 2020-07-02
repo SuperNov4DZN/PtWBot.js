@@ -36,5 +36,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "ban",
-    allias: "cinzado"
+    allias: "cinzado",
+    description: "Uso: \"!ban <@usuario> ou <nome do meliante>\" \nBane um usuario do servidor."
 }

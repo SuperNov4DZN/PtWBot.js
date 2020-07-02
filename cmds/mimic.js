@@ -18,5 +18,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "mimic",
-    allias: "m"
+    allias: "m",
+    description: "Uso \"!mimic <mensagem>\" \nEnvia a mensagem desejada no chat geral (WIP)."
 }

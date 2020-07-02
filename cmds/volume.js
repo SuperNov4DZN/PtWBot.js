@@ -27,5 +27,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "volume",
-    allias: "volume"
+    allias: "volume",
+    description: "Uso: \"!volume <n>\" \nAltera o volume de reprodução da música (0~100)."
 }

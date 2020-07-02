@@ -1,6 +1,6 @@
-const {yt_token} = require("../config.json");
-const request = require("request");
-const ytdl = require("ytdl-core");
+const {yt_token} = module.require("../config.json");
+const request = module.require("request");
+const ytdl = module.require("ytdl-core");
 
 
 function timeFormat(duration)
@@ -130,5 +130,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "play",
-    allias: "tocar"
+    allias: "tocar",
+    description: "Uso: \"!play <youtube url> ou !play <nome da musica>\" \nToca a música desejada no voice."
 }

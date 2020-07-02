@@ -28,5 +28,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "queue",
-    allias: "fila"
+    allias: "fila",
+    description: "Uso: \"!queue\" \nMostra a música atual e o estado da fila."
 }

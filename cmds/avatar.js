@@ -27,5 +27,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "avatar",
-    allias: " "
+    allias: " ",
+    description: "Uso \"!avatar <@usuario> ou <nome do meliante>\" \nEnvia o avatar do usuário desejado no chat."
 }

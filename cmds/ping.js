@@ -12,5 +12,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "ping",
-    allias: " "
+    allias: " ",
+    description: "Uso: \"!ping\" \nMostra a latência atual."
 }

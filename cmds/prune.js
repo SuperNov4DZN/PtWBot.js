@@ -32,5 +32,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "prune",
-    allias: "apagar"
+    allias: "apagar",
+    description: "Uso: \"!prune <n>\" \nApaga n mensagens do chat atual."
 }

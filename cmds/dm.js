@@ -20,5 +20,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "dm",
-    allias: "dm"
+    allias: "dm",
+    description: "Uso: \"!dm <@usuario> ou !dm <nome do meliante>\" \nEnvia uma mensagem na dm do meliante."
 }

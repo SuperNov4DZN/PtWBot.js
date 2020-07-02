@@ -8,5 +8,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "nowplaying",
-    allias: "tocando"
+    allias: "tocando",
+    description: "Uso: \"!nowplaying\" \nMostra a música que está sendo tocada atualmente."
 }

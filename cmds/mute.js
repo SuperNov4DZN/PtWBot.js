@@ -67,5 +67,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "mute",
-    allias: "mutar"
+    allias: "mutar",
+    description: "Uso: \"!mute <@usuario> <tempo> ou !mute <nome do meliante> <tempo>\" \nMuta o usuario durante o tempo determinando ou indeterminado se o mesmo não for dado."
 }

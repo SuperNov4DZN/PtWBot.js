@@ -31,5 +31,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "userinfo",
-    allias: "infousuario"
+    allias: "infousuario",
+    description: "Uso: \"!userinfo <@usuario> ou <nome do meliante>\" \nMostra algumas informações do usuario."
 }

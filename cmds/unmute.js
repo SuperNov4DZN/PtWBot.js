@@ -36,5 +36,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "unmute",
-    allias: "desmutar"
+    allias: "desmutar",
+    description: "Uso: \"!unmute <@usuario> ou <id>\" \nDesmuta o usuario."
 }

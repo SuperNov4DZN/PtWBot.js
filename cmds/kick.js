@@ -36,5 +36,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "kick",
-    allias: "eoq"
+    allias: "eoq",
+    description: "Uso: \"!kick <@usuario> ou <nome do meliante>\" \nRemove um usuario do servidor."
 }
