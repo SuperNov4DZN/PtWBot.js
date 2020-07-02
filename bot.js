@@ -61,13 +61,13 @@ bot.on("ready", () => {
 // Update the bot status if he's added to any guild
 bot.on("guildCreate", guild => {
     console.log(`O bot entrou no servidor: ${guild.name} (id: ${guild.id}). População: ${guild.memberCount} membros!`);
-    bot.user.setActivity(`Helper PTW Official em ${bot.guilds.size} servidores`);
+    bot.user.setActivity(`Helper PTW Official em ${bot.guilds.cache.size} servidores`);
 });
 
 // Update the bot status if he's removed from any guild
 bot.on("guildDelete", guild => {
     console.log(`O bot foi removido do servidor: ${guild.name} (id: ${guild.id})`);
-    bot.user.setActivity(`Helper PTW Official em ${bot.guilds.sizer} servidores`);
+    bot.user.setActivity(`Helper PTW Official em ${bot.guilds.cache.size} servidores`);
 });
 
 // Read and run commands
