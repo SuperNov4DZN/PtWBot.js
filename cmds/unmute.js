@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, args) => {
     if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("Você não tem permissão para administrar mensagens!");
 
     let member = message.mentions.members.first();
-    let channel = bot.channels.fetch(logChannel);
+    //let channel = bot.channels.fetch(logChannel);
 
     if (!member) {
         let fetched = await message.guild.members.fetch({query: args[0], limit: 1});
@@ -28,7 +28,7 @@ module.exports.run = async (bot, message, args) => {
     fs.writeFile("./mutes.json", JSON.stringify(bot.mutes), err => {
         if(err) throw err;
         console.log(`O membro ${member.user.tag} foi desmutado!`);
-        channel.send(`${member.user.tag} Foi desmutado por ${message.author.tag}`);
+        //channel.send(`${member.user.tag} Foi desmutado por ${message.author.tag}`);
     });
 
     return;

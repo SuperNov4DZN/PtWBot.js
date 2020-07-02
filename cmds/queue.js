@@ -1,20 +1,29 @@
+let Discord = module.require("discord.js");
+
 module.exports.run = async (bot, message, args) => {
     const queue = bot.queue;
     const serverQueue = queue.get(message.guild.id);
 
-    let queueResponse = "";
+    let embed = new Discord.MessageEmbed().setTitle("Fila | Queue").setColor(0x2196F3).setImage(message.guild.iconURL());
+    let description = "";
+    let i = 0;
 
     if (!serverQueue) {
         return message.channel.send('There is nothing playing');
     }
 
-    queueResponse = `This queue has ${serverQueue.songs.length} songs!\n\`\`\`diff\n`
-
     serverQueue.songs.forEach(song => {
-        queueResponse = queueResponse + `+ ${song.title}` + '\n';
+        if (i === 0) {
+            description = `:loud_sound: **- ${song.title}** (${song.duration})\n`;
+        } else {
+            description = description + `**${i} - ${song.title}** (${song.duration})\n`;
+        }
+        i += 1;
     });
-    queueResponse = queueResponse + "```";
-    return message.channel.send(queueResponse);
+
+    embed.setDescription(description);
+
+    return message.channel.send(embed);
 }
 
 module.exports.help = {

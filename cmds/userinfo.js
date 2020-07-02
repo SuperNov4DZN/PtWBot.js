@@ -21,7 +21,7 @@ module.exports.run = async (bot, message, args) => {
         .setColor("#5400A7")
         .addField("Nick completo", member.user.tag)
         .addField("ID", member.user.id)
-        .addField("Entrou em", member.user.createdAt);
+        .addField("Entrou em", member.joinedAt);
 
     // Send the embed to the same channel as the message
     message.channel.send({embed: embed});

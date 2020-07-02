@@ -1,6 +1,27 @@
 const {yt_token} = require("../config.json");
 const request = require("request");
 const ytdl = require("ytdl-core");
+
+
+function timeFormat(duration)
+{   
+    // Hours, minutes and seconds
+    var hrs = ~~(duration / 3600);
+    var mins = ~~((duration % 3600) / 60);
+    var secs = ~~duration % 60;
+
+    // Output like "1:01" or "4:03:59" or "123:03:59"
+    var ret = "";
+
+    if (hrs > 0) {
+        ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+    }
+
+    ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+    ret += "" + secs;
+    return ret;
+}
+
 // Checks if a given string is a link to youtube
 function isYoutube(str) {
     return str.toLowerCase().indexOf("youtube.com") > -1;
@@ -45,8 +66,8 @@ function play(message, song) {
 
 module.exports.run = async (bot, message, args) => {
     try {
-        const queue = message.client.queue;
-        const serverQueue = message.client.queue.get(message.guild.id);
+        const queue = bot.queue;
+        const serverQueue = bot.queue.get(message.guild.id);
 
         const voiceChannel = message.member.voice.channel;
         if (!voiceChannel)
@@ -67,6 +88,7 @@ module.exports.run = async (bot, message, args) => {
 
         const songInfo = await ytdl.getInfo(ytId);
         const song = {
+            duration: timeFormat(songInfo.videoDetails.lengthSeconds),
             title: songInfo.videoDetails.title,
             url: songInfo.videoDetails.video_url
         };
@@ -92,7 +114,7 @@ module.exports.run = async (bot, message, args) => {
             } catch (err) {
                 console.log(err);
                 queue.delete(message.guild.id);
-                return message.channel.send("Please use a valid youtube link");
+                return message.channel.send(err);
             }
         } else {
             serverQueue.songs.push(song);
