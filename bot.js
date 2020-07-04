@@ -7,8 +7,6 @@ const prefix = config.prefix;
 
 const bot = new Client();
 
-bot.mutes = require("./mutes.json");
-
 // Read the "cmds" file and display the commands
 fs.readdir("./cmds/", (err, files) => {
     if(err) console.error(err);
@@ -62,12 +60,34 @@ bot.on("ready", () => {
 bot.on("guildCreate", guild => {
     console.log(`O bot entrou no servidor: ${guild.name} (id: ${guild.id}). População: ${guild.memberCount} membros!`);
     bot.user.setActivity(`Helper PTW Official em ${bot.guilds.cache.size} servidores`);
+
+    const settingsConstruct = {
+        adm: null,
+        mod: null,
+        dj: null
+
+    }
+
+    bot.guilds.settings[guild.id] = settingsConstruct;
+    
+    fs.writeFile("./guildsettings.json", JSON.stringify(bot.guilds.settings, null, 4), err => {
+        if(err) throw err;
+    });
+
+
 });
 
 // Update the bot status if he's removed from any guild
 bot.on("guildDelete", guild => {
     console.log(`O bot foi removido do servidor: ${guild.name} (id: ${guild.id})`);
     bot.user.setActivity(`Helper PTW Official em ${bot.guilds.cache.size} servidores`);
+
+    delete bot.guilds.settings[guild.id];
+
+    fs.writeFile("./guildsettings.json", JSON.stringify(bot.guilds.settings), err => {
+        if(err) throw err;
+    });
+
 });
 
 // Read and run commands

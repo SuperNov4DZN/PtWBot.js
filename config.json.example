@@ -1,0 +1,5 @@
+{
+    "prefix": "!",
+    "token": "your discord bot token",
+    "yt_token": "your youtube data api token"
+}

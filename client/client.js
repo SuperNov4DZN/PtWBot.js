@@ -12,5 +12,10 @@ module.exports = class extends Client {
 		this.queue = new Map();
 
 		this.config = config;
+
+		this.guilds.settings = require('../guildsettings.json');
+
+		this.mutes = require("../mutes.json");
+
 	}
 };
