@@ -4,7 +4,7 @@ module.exports.run = async (bot, message, args) => {
     const queue = bot.queue;
     const serverQueue = queue.get(message.guild.id);
 
-    let embed = new Discord.MessageEmbed().setTitle("Fila | Queue").setColor(0x2196F3);
+    let embed = new Discord.MessageEmbed().setAuthor("Fila | Queue", message.guild.iconURL()).setColor(0x5400A7);
     let description = "";
     let i = 0;
 

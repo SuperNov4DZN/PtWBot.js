@@ -15,12 +15,14 @@ module.exports.run = async (bot, message, args) => {
     
     // Create embed and set the main content
     let embed = new Discord.MessageEmbed()
-        .setAuthor(message.author.username)
+        .setAuthor(member.displayName, member.user.displayAvatarURL())
         .setThumbnail(member.user.displayAvatarURL())
-        .setDescription(`Informações do usuario \n${member.user.username}!`)
-        .setColor("#5400A7")
-        .addField("Nick completo", member.user.tag)
-        .addField("ID", member.user.id)
+        .setColor(0x5400A7)
+        .addField("Nickname", member.user.tag, true)
+        .addField("Status", member.user.presence.status, true)
+        .addField("ID", member.user.id, true)
+        .addField(member.user.presence.activities[0].type, member.user.presence.activities[0].name, true)
+        .addField("Mention", message.author, true)
         .addField("Entrou em", member.joinedAt);
 
     // Send the embed to the same channel as the message

@@ -9,16 +9,6 @@ module.exports.run = async (bot, message, args) => {
 
     const embed = new Discord.MessageEmbed()
 
-        // .setDescription("!ping [Mostra a latência atual]\n"
-        //     + "!diga ou say <mensagem> [Escreve a mensagem que você digitar]\n"
-        //     + "!apagar ou prune <n> [Deleta o numero x de mensagens]\n"
-        //     + "!kick <membro> <razão> [Expulsa um membro do servidor]\n"
-        //     + "!ban <membro> <razão> [Bane um membro do servidor]\n"
-        //     + "!infousuario ou userinfo <membro> [Mostra as informações do usuario]\n"
-        //     + "!mutar ou mute <membro> [Impede um usuario de digitar/falar]\n"
-        //     + "!desmutar ou unmute <membro> [Permite o usuario a digitar/falar novamente]\n"
-        //     + "!ajuda, ? ou help [Mostra essa mensagem]");
-
         // Set the title of the embed
         .setTitle('AJUDA | HELP')
 
@@ -26,7 +16,7 @@ module.exports.run = async (bot, message, args) => {
         .setDescription("Informações sobre todos os comandos disponíveis!")
 
         // Set the color of the embed
-        .setColor(0x2196F3);
+        .setColor(0x5400A7);
     
 	const commandFiles = fs.readdirSync('./cmds').filter(file => file.endsWith('.js'));
 

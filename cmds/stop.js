@@ -9,7 +9,14 @@ module.exports.run = async (bot, message, args) => {
     }
     
     serverQueue.songs = [];
-    serverQueue.connection.dispatcher.end();
+    // Precisamos descobrir o que está provocando o erro que torna o dispatcher "null"
+    try {
+        serverQueue.connection.dispatcher.end();
+    } catch (err) {
+        console.log(serverQueue);
+        bot.queue.delete(guild.id);
+        console.log(err);
+    }
 }
 
 module.exports.help = {

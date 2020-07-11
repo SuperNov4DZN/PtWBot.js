@@ -1,3 +1,4 @@
+let Discord = module.require("discord.js");
 // Generates and sends a img of the avatar of the  given member
 module.exports.run = async (bot, message, args) => {
     if(!message.member.roles.cache.some(r=>["⟸❖ DONO ❖⟹", "✚ ADM ✚", "♦ MOD ♦"].includes(r.name))) {
@@ -11,16 +12,16 @@ module.exports.run = async (bot, message, args) => {
         member = fetched.first();
     }
 
-    let msg = await message.channel.send("Gerando avatar....");
-    
-    if(!member.user.displayAvatarURL()) return msg.edit("Usuario sem avatar.");
+    if (!member) return message.channel.send("Usuário não encontrado.\nPor favor mencione um usuário válido deste servidor");
 
-    await message.channel.send({files: [
-        {
-            attachment: member.user.displayAvatarURL(),
-            name: "avatar.png"
-        }
-    ]});
+    let msg = await message.channel.send("Gerando avatar....");
+    let image = member.user.displayAvatarURL({size: 1024});
+
+    let embed = new Discord.MessageEmbed();
+
+    embed.setTitle(member.displayName).setImage(image).setColor(0x5400A7);
+
+    message.channel.send(embed);
 
     msg.delete();
 }
