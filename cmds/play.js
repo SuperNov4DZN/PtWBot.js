@@ -3,8 +3,7 @@ const request = module.require("request");
 const ytdl = module.require("ytdl-core");
 
 
-function timeFormat(duration)
-{   
+function timeFormat(duration) {   
     // Hours, minutes and seconds
     var hrs = ~~(duration / 3600);
     var mins = ~~((duration % 3600) / 60);
@@ -61,7 +60,7 @@ function play(message, song) {
       })
       .on("error", error => console.error(error));
     dispatcher.setVolumeLogarithmic(serverQueue.volume / 100);
-    serverQueue.textChannel.send(`Start playing: **${song.title}**`);
+    serverQueue.textChannel.send(`Started playing: **${song.title}**`);
   }
 
 module.exports.run = async (bot, message, args) => {
