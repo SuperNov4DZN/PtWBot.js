@@ -2,9 +2,6 @@ let Discord = module.require("discord.js");
 
 // Show info of the given member
 module.exports.run = async (bot, message, args) => {
-    if(!message.member.roles.cache.some(r=>["⟸❖ DONO ❖⟹", "✚ ADM ✚", "♦ MOD ♦"].includes(r.name))) {
-        return message.reply("Desculpe, você não tem permissão para usar isto!");
-    }
 
     let member = message.mentions.members.first();
 
@@ -32,9 +29,8 @@ module.exports.run = async (bot, message, args) => {
     }
 
     // Send the embed to the same channel as the message
-    message.channel.send({embed: embed});
+    return message.channel.send({embed: embed});
     
-    return;
 }
 
 module.exports.help = {

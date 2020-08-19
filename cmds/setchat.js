@@ -1,5 +1,5 @@
 const fs = module.require("fs");
-// Binds a guild roleId into adm, mod or dj level permissions on the bot
+// Binds a guild channelId into the default text channel that the bot will speak
 module.exports.run = async (bot, message, args) => {
 
     let roleAdm = bot.guilds.settings[message.guild.id].adm;
@@ -10,7 +10,7 @@ module.exports.run = async (bot, message, args) => {
 
     } else {
 
-        let role = message.mentions.roles.first();
+        let chat = message.mentions.channels.first();
 
         if (!bot.guilds.settings[message.guild.id]) {
             
@@ -18,24 +18,17 @@ module.exports.run = async (bot, message, args) => {
                 adm: null,
                 mod: null,
                 dj: null,
-                genChat: null
+                genChannel: null
             }
 
             bot.guilds.settings[message.guild.id] = settingsConstruct;
         }
 
-        if (args[0] === "adm") {
-
-            bot.guilds.settings[message.guild.id].adm = role.id;
-
-            message.channel.send("O cargo mencionado agora tem o nível administrador");
-
-        } else if (args[0] === "mod") {
-            bot.guilds.settings[message.guild.id].mod = role.id;
-            message.channel.send("O cargo mencionado agora tem o nível moderador");
-        } else {
-            message.channel.send("Desculpe, não entendi. Tenha certeza de primeiro digitar o nível de permissão e depois marcar o cargo! (Ex.: !setrole <mod> <@role>)");
+        if (!chat) {
+            return message.reply("Desculpe, não entendi. Tente mencionar um canal válido deste servidor");
         }
+
+        bot.guilds.settings[message.guild.id].genChannel = chat.id;
         
         fs.writeFile("./guildsettings.json", JSON.stringify(bot.guilds.settings, null, 4), err => {
             if(err) throw err;
@@ -44,6 +37,6 @@ module.exports.run = async (bot, message, args) => {
 }
 
 module.exports.help = {
-    name: "setrole",
-    description: "Uso: \"!setrole < adm || mod > 'cargo' \" \nVincula um cargo existente as permissões selecionadas."
+    name: "setchat",
+    description: "Uso: \"!setchat <#channel>\" \nDá acesso a um chat existente ao bot. Este chat será tratado como chat geral e receberá as mensagens do mimic."
 }

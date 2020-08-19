@@ -1,9 +1,6 @@
 let Discord = module.require("discord.js");
 // Generates and sends a img of the avatar of the  given member
 module.exports.run = async (bot, message, args) => {
-    if(!message.member.roles.cache.some(r=>["⟸❖ DONO ❖⟹", "✚ ADM ✚", "♦ MOD ♦"].includes(r.name))) {
-        return message.reply("Desculpe, você não tem permissão para usar isto!");
-    }
 
     let member = message.mentions.members.first();
 

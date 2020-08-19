@@ -7,31 +7,34 @@ module.exports.run = async (bot, message, args) => {
 
     let roleAdm = bot.guilds.settings[message.guild.id].adm;
     let roleMod = bot.guilds.settings[message.guild.id].mod;
-
-    if (!(((message.member.id) === (message.guild.owner.id)) || roleAdm ? message.member.roles.cache.has(roleAdm) : false || roleMod ? message.member.roles.cache.has(roleMod) : false)) {
+    
+    if (!(message.member.id === message.guild.owner.id || (roleAdm ? message.member.roles.cache.has(roleAdm) : false) || (roleMod ? message.member.roles.cache.has(roleMod) : false))) {
 
         return message.reply("Desculpe, você não tem permissão para usar isto!");
 
+    } else {
+
+        let member = message.mentions.members.first();
+
+        if (!member) {
+
+            let fetched = await message.guild.members.fetch({query: args[0], limit: 1});
+            member = fetched.first();
+
+        }
+
+        if (!member) {
+            return message.reply("Por favor mencione um membro válido deste servidor!");
+        }
+
+        message.delete();
+        mentionMessage = message.content.slice(3);
+        member.send(mentionMessage + "\n Não responda essa mensagem.. A não ser que queira falar sozinho kkk");
+        return message.channel.send(`Uma dm foi enviada para o usuario ${member.user.tag}!`);
+
     }
 
-    let member = message.mentions.members.first();
-
-    if (!member) {
-
-        let fetched = await message.guild.members.fetch({query: args[0], limit: 1});
-        member = fetched.first();
-
-    }
-
-    if(member == null) return;
-
-    message.delete();
-    mentionMessage = message.content.slice(3);
-    member.send(mentionMessage + "\n Não responda essa mensagem.. A não ser que queira falar sozinho kkk");
-    message.channel.send(`Uma dm foi enviada para o usuario ${member.user.tag}!`);
-    return;
-
-}
+}    
 
 module.exports.help = {
     name: "dm",
