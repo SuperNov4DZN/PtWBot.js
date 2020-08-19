@@ -53,7 +53,7 @@ function play(message, song) {
     }
 
     const dispatcher = serverQueue.connection
-      .play(ytdl(song.url))
+      .play(ytdl(song.url, { quality: "highestaudio", requestOptions: { maxReconnects: 1, maxRetries: 2 }}))
       .on("finish", () => {
         serverQueue.songs.shift();
         play(message, serverQueue.songs[0]);

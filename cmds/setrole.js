@@ -20,13 +20,13 @@ module.exports.run = async (bot, message, args) => {
 
         bot.guilds.settings[message.guild.id].adm = role.id;
 
-        message.channel.send(":fire: Deu certo :fire:");
+        message.channel.send("O cargo mencionado agora tem o nível administrador");
 
     }
 
     if (args[0] === "mod") {
         bot.guilds.settings[message.guild.id].mod = role.id;
-        message.channel.send(":fire: Deu certo :fire:");
+        message.channel.send("O cargo mencionado agora tem o nível moderador");
     }
     
     fs.writeFile("./guildsettings.json", JSON.stringify(bot.guilds.settings, null, 4), err => {
