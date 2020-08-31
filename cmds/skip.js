@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) => {
     if (!isNaN(args[0]) && args[0] < serverQueue.songs.length) {
         serverQueue.songs.splice(0, args[0]-1);
     }
-    // Precisamos descobrir o que está provocando o erro que torna o dispatcher "null"
+
     try {
         serverQueue.connection.dispatcher.end();
     } catch (err) {

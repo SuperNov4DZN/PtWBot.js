@@ -13,10 +13,14 @@ module.exports.run = async (bot, message, args) => {
         let channelId = await bot.guilds.settings[message.guild.id].genChannel;
         let channel = bot.channels.cache.find(id => id == channelId);
 
-        // Send the massage in the default channel
-        const sayMessage = args.join(" ");
-        message.delete().catch(err => { console.log(err) });
-        return channel.send(sayMessage);  
+        // If the set channel is valid, send the message
+        if (channel) {
+            const sayMessage = args.join(" ");
+            message.delete().catch(err => { console.log(err) });
+            return channel.send(sayMessage);  
+        } else {
+            message.reply("O canal padrão não foi encontrado!\nTenha certeza de que o canal foi definido via **!setchat**")
+        }
     }
 }
 

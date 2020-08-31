@@ -22,7 +22,12 @@ module.exports.run = async (bot, message, args) => {
     if (!member.user.presence.activities[0]) {
         embed.addField("Mention", message.author, true)
             .addField("Entrou em", member.joinedAt);
+    } else if (member.user.presence.activities[0].type == 'CUSTOM_STATUS'){
+        embed.addField(member.user.presence.activities[0].name, member.user.presence.activities[0].state, true)
+            .addField("Mention", message.author, true)
+            .addField("Entrou em", member.joinedAt);
     } else {
+        console.log(member.user.presence.activities[0]);
         embed.addField(member.user.presence.activities[0].type, member.user.presence.activities[0].name, true)
             .addField("Mention", message.author, true)
             .addField("Entrou em", member.joinedAt);

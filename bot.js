@@ -64,8 +64,8 @@ bot.on("guildCreate", guild => {
     const settingsConstruct = {
         adm: null,
         mod: null,
-        dj: null
-
+        dj: null,
+        genChat: null
     }
 
     bot.guilds.settings[guild.id] = settingsConstruct;
